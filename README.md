@@ -137,7 +137,6 @@ Acesse `http://localhost:8501` no seu navegador.
 │   ├── 📄 graph.md     # 🔄 Documentação do workflow LangGraph
 │   ├── 📄 prompts.md   # 💭 Documentação dos prompts e otimizações
 │   └── 📄 schemas.md   # 🏗️ Documentação das estruturas de dados
-└── 📁 perplexity-clone/ # 🎯 Versão alternativa ou backup do projeto
 ```
 
 ### 📋 Descrição dos Arquivos
