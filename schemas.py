@@ -6,8 +6,9 @@
 # ============================================================================
 
 from typing import List, Optional
+from typing_extensions import TypedDict, Annotated
 from pydantic import BaseModel
-from typing_extensions import TypedDict
+import operator
 
 # ============================================================================
 # MODELO DE RESULTADO DE PESQUISA INDIVIDUAL
@@ -41,7 +42,7 @@ class ReportState(TypedDict):
     Attributes:
         user_input (str): Pergunta original do usuário
         queries (List[str]): Lista de queries geradas para pesquisa
-        queries_results (List[QueryResult]): Resultados de todas as pesquisas
+        queries_results (Annotated[List[QueryResult], operator.add]): Resultados de todas as pesquisas
         final_response (str): Resposta final sintetizada
         sources (List[dict]): Fontes consolidadas e deduplicadas
     
@@ -49,9 +50,13 @@ class ReportState(TypedDict):
     1. user_input → build_first_queries → queries
     2. queries → spawn_researchers → single_search → queries_results
     3. queries_results → final_writer → final_response + sources
+    
+    NOTA: queries_results usa Annotated[List[QueryResult], operator.add] para permitir
+    que múltiplos nós paralelos (single_search) atualizem simultaneamente esta chave.
+    O operator.add concatena automaticamente as listas de resultados.
     """
-    user_input: str                      # Entrada: pergunta do usuário
-    queries: List[str]                   # Queries geradas para pesquisa
-    queries_results: List[QueryResult]   # Resultados de pesquisas individuais
-    final_response: str                  # Resposta final consolidada
-    sources: List[dict]                  # Fontes únicas com metadados
+    user_input: str                                          # Entrada: pergunta do usuário
+    queries: List[str]                                       # Queries geradas para pesquisa
+    queries_results: Annotated[List[QueryResult], operator.add]  # Resultados de pesquisas individuais
+    final_response: str                                      # Resposta final consolidada
+    sources: List[dict]                                      # Fontes únicas com metadados
