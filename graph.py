@@ -150,22 +150,22 @@ def single_search(data: dict):
                                             search_results=raw_content)
 
                 llm_result = llm.invoke(prompt)
-                query_results.append(QueryResult(title=title,
-                                        url=url,
-                                        resume=llm_result.content))
+                query_results.append(QueryResult(query=title,
+                                        content=llm_result.content,
+                                        sources=[url]))
             else:
                 # FALLBACK: Usar snippet básico quando não há conteúdo completo
-                query_results.append(QueryResult(title=title,
-                                        url=url,
-                                        resume=content or "Conteúdo não disponível"))
+                query_results.append(QueryResult(query=title,
+                                        content=content or "Conteúdo não disponível",
+                                        sources=[url]))
                 
     except Exception as e:
         # TRATAMENTO DE ERRO: Capturar limites de API, falhas de conexão, etc.
         print(f"Erro na busca: {e}")
         # Fallback em caso de erro: retorna resultado básico para continuidade
-        query_results = [QueryResult(title=f"Busca: {query}",
-                                   url="#",
-                                   resume=f"Erro ao buscar informações sobre: {query}")]
+        query_results = [QueryResult(query=f"Busca: {query}",
+                                   content=f"Erro ao buscar informações sobre: {query}",
+                                   sources=["#"])]
     
     return {"queries_results": query_results}
 
@@ -194,13 +194,15 @@ def final_writer(state: ReportState):
     
     for i, result in enumerate(state['queries_results']):
         # CONTROLE DE TOKENS: Limitar cada resumo individual (300 chars)
-        resume_content = result.resume
-        if len(resume_content) > 300:
-            resume_content = resume_content[:300] + "..."
+        content_text = result.content
+        if len(content_text) > 300:
+            content_text = content_text[:300] + "..."
             
         # FORMATAÇÃO: Estruturar resultados numerados para o prompt
-        search_results += f"[{i+1}] {result.title}\n{resume_content}\n\n"
-        references += f"[{i+1}] - [{result.title}]({result.url})\n"
+        search_results += f"[{i+1}] {result.query}\n{content_text}\n\n"
+        # Usar primeira fonte da lista de sources
+        source_url = result.sources[0] if result.sources else "#"
+        references += f"[{i+1}] - [{result.query}]({source_url})\n"
     
     # PREPARAÇÃO DO PROMPT: Consolidar pergunta e resultados
     prompt = build_final_response.format(user_input=state['user_input'],
