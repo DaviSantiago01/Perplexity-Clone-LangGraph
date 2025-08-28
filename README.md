@@ -1,15 +1,46 @@
 # 🔍 Perplexity Clone - Ollama + LangGraph
 
-> Um clone do Perplexity AI construído com **LangGraph**, **Ollama** e **Tavily** para pesquisa inteligente com IA local
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
+[![LangGraph](https://img.shields.io/badge/LangGraph-Latest-green.svg)](https://langchain-ai.github.io/langgraph/)
+[![Ollama](https://img.shields.io/badge/Ollama-Local%20AI-orange.svg)](https://ollama.ai/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-Web%20App-red.svg)](https://streamlit.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+> 🚀 **Clone do Perplexity AI** construído com **LangGraph**, **Ollama** e **Tavily** para pesquisa inteligente com IA local
+
+<div align="center">
+  <img src="https://img.shields.io/badge/Status-Production%20Ready-brightgreen" alt="Status">
+  <img src="https://img.shields.io/badge/AI-Local%20Processing-blue" alt="AI">
+  <img src="https://img.shields.io/badge/Search-Real%20Time-orange" alt="Search">
+</div>
+
+---
 
 ## 📋 Sobre o Projeto
 
-Este projeto é uma implementação de um sistema de pesquisa inteligente similar ao Perplexity AI, que combina:
+**Perplexity Clone** é uma implementação completa de um sistema de pesquisa inteligente similar ao Perplexity AI, que combina o poder da IA local com pesquisa web em tempo real.
 
-- **Busca web em tempo real** via API Tavily
-- **Processamento local de IA** usando modelos Ollama
-- **Workflow complexo** gerenciado pelo LangGraph
-- **Interface web interativa** com Streamlit
+### ✨ Principais Características
+
+- 🌐 **Busca web em tempo real** via API Tavily
+- 🤖 **Processamento local de IA** usando modelos Ollama
+- 🔄 **Workflow complexo** gerenciado pelo LangGraph
+- 💻 **Interface web interativa** com Streamlit
+- 🚀 **Processamento paralelo** para máxima eficiência
+- 📚 **Referências completas** com links verificáveis
+
+### 🎬 Demonstração
+
+```bash
+# Exemplo de pergunta
+"Como funciona o machine learning?"
+
+# O sistema automaticamente:
+# 1. Gera queries: ["machine learning basics", "ML algorithms", "neural networks"]
+# 2. Pesquisa simultaneamente na web
+# 3. Extrai e resume conteúdo relevante
+# 4. Compila resposta abrangente com fontes
+```
 
 ### 🎯 Como Funciona
 
