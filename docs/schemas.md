@@ -4,6 +4,8 @@
 
 O arquivo `schemas.py` define as **estruturas de dados** fundamentais do sistema usando **Pydantic**. Estes modelos garantem validação de tipos, serialização consistente e documentação automática dos dados que fluem através do workflow LangGraph.
 
+**🚀 Atualização**: Schemas otimizados para integração com Groq LLMs e código completamente documentado com comentários detalhados.
+
 ## 🎯 Propósito dos Schemas
 
 ### Por que usar Pydantic?
@@ -48,7 +50,7 @@ for result in results:
     url = result.get('url', 'Sem URL')
     content = result.get('content', 'Sem conteúdo')
     
-    # Processamento via LLM
+    # Processamento via LLM Groq (ultrarrápido)
     summary_response = llm.invoke(resume_prompt + content)
     summary = summary_response.content
     
@@ -385,11 +387,12 @@ def test_state_evolution():
 
 ## 📈 Performance e Otimização
 
-### Uso de Memória
+### Uso de Memória (com Groq)
 
 - **QueryResult**: ~200-500 bytes por objeto
 - **ReportState**: ~1-5KB dependendo do número de resultados
 - **Serialização**: JSON compacto para persistência
+- **Vantagem Groq**: Sem overhead de modelos locais, menor uso de RAM
 
 ### Otimizações
 

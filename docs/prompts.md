@@ -2,7 +2,9 @@
 
 ## Visão Geral
 
-O arquivo `prompts.py` contém os **templates de prompts** que guiam o comportamento dos modelos de linguagem (LLMs) em cada etapa do workflow. Estes prompts são cuidadosamente elaborados para extrair o máximo desempenho dos modelos Ollama, definindo personalidades, contextos e formatos de saída específicos.
+O arquivo `prompts.py` contém os **templates de prompts** que guiam o comportamento dos modelos de linguagem (LLMs) em cada etapa do workflow. Estes prompts são cuidadosamente elaborados para extrair o máximo desempenho dos **modelos Groq**, definindo personalidades, contextos e formatos de saída específicos.
+
+**🚀 Atualização**: Prompts otimizados para modelos Groq (Llama 3.1) com performance ultrarrápida e qualidade superior.
 
 ## 🎯 Importância dos Prompts
 
@@ -252,33 +254,39 @@ Formato de Saída (especificações claras)
 #### **Few-Shot Learning**
 - Exemplos práticos no prompt `build_queries`
 
-### 3. Otimizações para Ollama
+### 3. Otimizações para Groq LLMs
 
-#### **Clareza e Simplicidade**
+#### **Clareza e Simplicidade (Groq)**
 ```python
-# ✅ Bom - Instrução clara
+# ✅ Bom - Instrução clara para Groq
 "Gere uma lista de 3-5 consultas de pesquisa"
 
 # ❌ Ruim - Instrução ambígua
 "Crie algumas queries relacionadas"
+
+# 🚀 Groq Advantage: Modelos mais inteligentes compreendem nuances melhor
 ```
 
-#### **Contexto Suficiente**
+#### **Contexto Suficiente (Groq)**
 ```python
-# ✅ Bom - Contexto completo
+# ✅ Bom - Contexto completo para Groq
 agent_prompt + build_queries + user_input
 
 # ❌ Ruim - Contexto insuficiente
 build_queries + user_input
+
+# 🚀 Groq Advantage: Melhor compreensão de contexto com menos tokens
 ```
 
-#### **Formato Estruturado**
+#### **Formato Estruturado (Groq)**
 ```python
-# ✅ Bom - Formato específico
+# ✅ Bom - Formato específico para Groq
 "Formato: Uma lista simples, uma consulta por linha"
 
 # ❌ Ruim - Formato vago
 "Liste as consultas"
+
+# 🚀 Groq Advantage: Seguimento mais preciso de instruções de formato
 ```
 
 ## 🚀 Extensões e Melhorias

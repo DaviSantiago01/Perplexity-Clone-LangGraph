@@ -1,33 +1,36 @@
-# 🔍 Perplexity Clone - Ollama + LangGraph
+# 🔍 Perplexity Clone - Groq + LangGraph
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
 [![LangGraph](https://img.shields.io/badge/LangGraph-Latest-green.svg)](https://langchain-ai.github.io/langgraph/)
-[![Ollama](https://img.shields.io/badge/Ollama-Local%20AI-orange.svg)](https://ollama.ai/)
+[![Groq](https://img.shields.io/badge/Groq-Lightning%20Fast%20AI-purple.svg)](https://groq.com/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-Web%20App-red.svg)](https://streamlit.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> 🚀 **Clone do Perplexity AI** construído com **LangGraph**, **Ollama** e **Tavily** para pesquisa inteligente com IA local
+> 🚀 **Clone do Perplexity AI** construído com **LangGraph**, **Groq LLMs** e **Tavily** para pesquisa inteligente ultrarrápida
 
 <div align="center">
   <img src="https://img.shields.io/badge/Status-Production%20Ready-brightgreen" alt="Status">
-  <img src="https://img.shields.io/badge/AI-Local%20Processing-blue" alt="AI">
+  <img src="https://img.shields.io/badge/AI-Groq%20Lightning-purple" alt="AI">
   <img src="https://img.shields.io/badge/Search-Real%20Time-orange" alt="Search">
+  <img src="https://img.shields.io/badge/Code-Fully%20Documented-blue" alt="Documentation">
 </div>
 
 ---
 
 ## 📋 Sobre o Projeto
 
-**Perplexity Clone** é uma implementação completa de um sistema de pesquisa inteligente similar ao Perplexity AI, que combina o poder da IA local com pesquisa web em tempo real.
+**Perplexity Clone** é uma implementação completa de um sistema de pesquisa inteligente similar ao Perplexity AI, que combina o poder ultrarrápido dos **Groq LLMs** com pesquisa web em tempo real.
 
 ### ✨ Principais Características
 
-- 🌐 **Busca web em tempo real** via API Tavily
-- 🤖 **Processamento local de IA** usando modelos Ollama
-- 🔄 **Workflow complexo** gerenciado pelo LangGraph
-- 💻 **Interface web interativa** com Streamlit
-- 🚀 **Processamento paralelo** para máxima eficiência
-- 📚 **Referências completas** com links verificáveis
+- 🌐 **Busca web em tempo real** via API Tavily com conteúdo completo
+- ⚡ **Processamento ultrarrápido** usando Groq LLMs (Llama 3.1/3.3)
+- 🔄 **Workflow inteligente** gerenciado pelo LangGraph
+- 💻 **Interface web moderna** com Streamlit e indicadores de progresso
+- 🚀 **Processamento paralelo** otimizado para máxima eficiência
+- 📚 **Referências completas** com links verificáveis e deduplicação
+- 📝 **Código totalmente documentado** com comentários detalhados
+- 🛡️ **Tratamento robusto de erros** e fallbacks automáticos
 
 ### 🎬 Demonstração
 
@@ -44,10 +47,11 @@
 
 ### 🎯 Como Funciona
 
-1. **Geração de Queries**: O sistema recebe uma pergunta e gera múltiplas queries de pesquisa
-2. **Pesquisa Paralela**: Cada query é pesquisada simultaneamente na web
-3. **Extração e Resumo**: O conteúdo das páginas é extraído e resumido
-4. **Síntese Final**: Todos os resultados são compilados em uma resposta abrangente
+1. **Geração Inteligente de Queries**: Groq Llama-3.1-8b-instant gera múltiplas queries otimizadas
+2. **Pesquisa Paralela Avançada**: Cada query é pesquisada simultaneamente com `include_raw_content=True`
+3. **Extração e Resumo Inteligente**: Conteúdo completo é extraído, limitado e resumido automaticamente
+4. **Síntese Final Poderosa**: Groq Llama-3.3-70b-versatile compila resposta abrangente com fontes deduplicadas
+5. **Controle de Tokens**: Limitação automática de conteúdo para otimização de performance
 
 ## 🏗️ Arquitetura LangGraph
 
@@ -68,17 +72,19 @@ graph TD
 
 ### 🔧 Componentes Principais
 
-- **`build_first_queries`**: Gera múltiplas queries de pesquisa a partir da pergunta
-- **`spawn_researchers`**: Distribui queries para execução paralela (fan-out)
-- **`single_search`**: Executa pesquisa individual e extrai conteúdo
-- **`final_write`**: Compila todos os resultados em resposta final (fan-in)
+- **`build_first_queries`**: Gera múltiplas queries otimizadas usando Groq LLM rápido
+- **`spawn_researchers`**: Distribui queries para execução paralela (fan-out pattern)
+- **`single_search`**: Executa pesquisa Tavily com conteúdo completo e tratamento de erros
+- **`final_writer`**: Compila resultados usando Groq LLM potente (fan-in pattern)
+- **`deduplicate_and_format_sources`**: Remove duplicatas e formata fontes
+- **`tavily_search`**: Interface robusta para API Tavily com controle de conteúdo
 
 ## 🚀 Instalação e Configuração
 
 ### Pré-requisitos
 
 1. **Python 3.8+**
-2. **Ollama** instalado e rodando
+2. **Conta Groq** para acesso aos LLMs ultrarrápidos
 3. **Conta Tavily** para API de pesquisa web
 
 ### Instalação
@@ -97,15 +103,13 @@ pip install -r requirements.txt
 3. Configure as variáveis de ambiente:
 ```bash
 # Crie um arquivo .env
-echo "TAVILY_API_KEY=sua_chave_tavily_aqui" > .env
+echo "GROQ_API_KEY=sua_chave_groq_aqui" > .env
+echo "TAVILY_API_KEY=sua_chave_tavily_aqui" >> .env
 ```
 
-4. Instale os modelos Ollama:
-```bash
-# Modelos necessários
-ollama pull llama3.2:1b   # Modelo rápido para tarefas simples
-ollama pull llama3.2:3b   # Modelo mais potente para síntese
-```
+4. Obtenha suas chaves de API:
+   - **Groq**: Acesse [console.groq.com](https://console.groq.com) e crie uma chave gratuita
+   - **Tavily**: Acesse [tavily.com](https://tavily.com) e registre-se para obter a chave
 
 ### Execução
 
@@ -118,30 +122,46 @@ Acesse `http://localhost:8501` no seu navegador.
 ## 📁 Estrutura do Projeto
 
 ```
-📦 perplexity-ollama-clone/
-├── 📄 graph.py          # Arquivo principal com workflow LangGraph
-├── 📄 schemas.py        # Estruturas de dados (Pydantic models)
-├── 📄 prompts.py        # Templates de prompts para LLMs
-├── 📄 requirements.txt  # Dependências Python
-├── 📄 .env             # Variáveis de ambiente (API keys)
-├── 📄 .gitignore       # Arquivos ignorados pelo Git
-└── 📄 README.md        # Este arquivo
+📦 perplexity-groq-clone/
+├── 📄 graph.py          # 🚀 Arquivo principal com workflow LangGraph e interface Streamlit
+├── 📄 schemas.py        # 📊 Estruturas de dados (Pydantic models) - QueryResult, ReportState
+├── 📄 prompts.py        # 💬 Templates de prompts otimizados para Groq LLMs
+├── 📄 utils.py          # 🛠️ Funções utilitárias (Tavily, formatação, deduplicação)
+├── 📄 requirements.txt  # 📦 Dependências Python (LangGraph, Groq, Tavily, etc.)
+├── 📄 .env             # 🔑 Variáveis de ambiente (GROQ_API_KEY, TAVILY_API_KEY)
+├── 📄 .gitignore       # 🚫 Arquivos ignorados pelo Git
+├── 📄 LICENSE          # ⚖️ Licença MIT
+├── 📄 README.md        # 📖 Este arquivo de documentação
+├── 📁 docs/            # 📚 Documentação técnica detalhada
+│   ├── 📄 graph.md     # 🔄 Documentação do workflow LangGraph
+│   ├── 📄 prompts.md   # 💭 Documentação dos prompts e otimizações
+│   └── 📄 schemas.md   # 🏗️ Documentação das estruturas de dados
+└── 📁 perplexity-clone/ # 🎯 Versão alternativa ou backup do projeto
 ```
+
+### 📋 Descrição dos Arquivos
+
+- **`graph.py`**: Núcleo do sistema com workflow LangGraph, configuração Groq e interface Streamlit
+- **`schemas.py`**: Modelos Pydantic para validação de dados (`QueryResult`, `ReportState`)
+- **`prompts.py`**: Prompts otimizados para diferentes etapas (geração de queries, resumo, síntese)
+- **`utils.py`**: Utilitários para integração Tavily, formatação e processamento de dados
+- **`docs/`**: Documentação técnica detalhada de cada componente do sistema
 
 ## 🔑 Variáveis de Ambiente
 
 | Variável | Descrição | Obrigatória |
 |----------|-----------|-------------|
+| `GROQ_API_KEY` | Chave da API Groq para LLMs ultrarrápidos | ✅ |
 | `TAVILY_API_KEY` | Chave da API Tavily para pesquisa web | ✅ |
 
 ## 🛠️ Tecnologias Utilizadas
 
 - **[LangGraph](https://langchain-ai.github.io/langgraph/)**: Framework para workflows de agentes
 - **[LangChain](https://langchain.com/)**: Toolkit para aplicações com LLM
-- **[Ollama](https://ollama.ai/)**: Execução local de modelos de IA
-- **[Tavily](https://tavily.com/)**: API de pesquisa web para IA
-- **[Streamlit](https://streamlit.io/)**: Framework para aplicações web
-- **[Pydantic](https://pydantic.dev/)**: Validação de dados
+- **[Groq](https://groq.com/)**: LLMs ultrarrápidos (Llama 3.1/3.3) via API
+- **[Tavily](https://tavily.com/)**: API de pesquisa web otimizada para IA
+- **[Streamlit](https://streamlit.io/)**: Framework para aplicações web interativas
+- **[Pydantic](https://pydantic.dev/)**: Validação e serialização de dados
 
 ## 📊 Fluxo de Dados
 
@@ -152,50 +172,89 @@ Acesse `http://localhost:8501` no seu navegador.
 5. **Final Synthesis**: LLM mais potente compila resposta final com referências
 6. **Output**: Resposta formatada exibida na interface
 
-## 🎨 Características
+## 🎨 Características Avançadas
 
-- ✅ **Processamento Local**: Usa modelos Ollama sem enviar dados para APIs externas
-- ✅ **Pesquisa Paralela**: Múltiplas queries executadas simultaneamente
-- ✅ **Referências**: Inclui links e fontes para verificação
-- ✅ **Interface Intuitiva**: Web app simples e responsiva
-- ✅ **Workflow Visualizável**: Grafo LangGraph pode ser visualizado
+- ✅ **Processamento Ultrarrápido**: Groq LLMs com latência sub-segundo
+- ✅ **Pesquisa Paralela Inteligente**: Múltiplas queries executadas simultaneamente
+- ✅ **Conteúdo Completo**: Extração de `raw_content` das páginas web
+- ✅ **Deduplicação Automática**: Remove fontes duplicadas automaticamente
+- ✅ **Controle de Tokens**: Limitação inteligente para otimização de custos
+- ✅ **Tratamento de Erros**: Fallbacks robustos para APIs indisponíveis
+- ✅ **Interface Moderna**: Indicadores de progresso e feedback em tempo real
+- ✅ **Código Documentado**: Comentários detalhados em todos os arquivos
 
 ## 🔧 Personalização
 
-### Modelos Ollama
+### Modelos Groq
 
 Você pode alterar os modelos utilizados editando as linhas em `graph.py`:
 
 ```python
-llm = ChatOllama(model="llama3.2:1b")        # Modelo rápido
-llm_reasoning = ChatOllama(model="llama3.2:3b")  # Modelo potente
+# Modelo rápido para geração de queries (8B parâmetros)
+llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0)
+
+# Modelo potente para síntese final (70B parâmetros)  
+final_llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
 ```
+
+**Modelos Groq disponíveis:**
+- `llama-3.1-8b-instant`: Ultrarrápido, ideal para tarefas simples
+- `llama-3.3-70b-versatile`: Mais potente, ideal para raciocínio complexo
+- `mixtral-8x7b-32768`: Alternativa com contexto estendido
 
 ### Prompts
 
 Os prompts podem ser customizados no arquivo `prompts.py` para diferentes domínios ou idiomas.
 
-### Número de Resultados
+### Configurações de Pesquisa
 
-Altere o número máximo de resultados por pesquisa em `single_search()`:
+Personalize os parâmetros de pesquisa em `single_search()`:
 
 ```python
-results = tavily_client.search(query, max_results=3)  # Padrão: 1
+# Número de resultados por query
+results = tavily_search(query, max_results=3, include_raw_content=True)
+
+# Controle de conteúdo (em utils.py)
+raw_content = result['raw_content'][:1500]  # Limite de caracteres
+```
+
+### Controle de Tokens
+
+Ajuste os limites de conteúdo para otimizar custos:
+
+```python
+# Em single_search() - limite de resumo
+summary = summary[:300]  # Máximo 300 caracteres
+
+# Em final_writer() - limite de resumos compilados  
+all_summaries = all_summaries[:2000]  # Controle total de tokens
 ```
 
 ## 🐛 Solução de Problemas
 
-### Erro: "Ollama not found"
-- Certifique-se que o Ollama está instalado e rodando
-- Verifique se os modelos foram baixados: `ollama list`
+### Erro: "Groq API key invalid" ou "groq.BadRequestError"
+- Verifique se a chave `GROQ_API_KEY` está correta no arquivo `.env`
+- Confirme que a conta Groq está ativa em [console.groq.com](https://console.groq.com)
+- Verifique se não excedeu os limites de rate da API gratuita
+
+### Erro: "Model not supported" 
+- Alguns modelos Groq podem ser descontinuados (ex: `llama-3.1-70b-versatile`)
+- Use modelos atualizados: `llama-3.3-70b-versatile` ou `llama-3.1-8b-instant`
+- Consulte a [documentação Groq](https://console.groq.com/docs/models) para modelos disponíveis
 
 ### Erro: "Tavily API key invalid"
-- Verifique se a chave está correta no arquivo `.env`
-- Confirme que a conta Tavily está ativa
+- Verifique se a chave `TAVILY_API_KEY` está correta no arquivo `.env`
+- Confirme que a conta Tavily está ativa em [tavily.com](https://tavily.com)
 
-### Interface não carrega
-- Verifique se todas as dependências estão instaladas
-- Execute: `streamlit doctor` para diagnóstico
+### Interface não carrega ou erros de dependência
+- Verifique se todas as dependências estão instaladas: `pip install -r requirements.txt`
+- Execute: `streamlit doctor` para diagnóstico completo
+- Certifique-se que está usando Python 3.8+
+
+### Performance lenta
+- Groq LLMs são ultrarrápidos, lentidão geralmente indica problemas de rede
+- Verifique sua conexão com a internet
+- Considere reduzir `max_results` nas pesquisas Tavily
 
 ## 🤝 Contribuição
 
