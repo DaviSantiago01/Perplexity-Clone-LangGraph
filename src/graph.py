@@ -4,7 +4,7 @@ from pydantic import BaseModel
 # LangChain e LangGraph - Framework para criação de agentes e workflows
 from langchain_ollama import ChatOllama  # Interface para modelos Ollama
 from langgraph.graph import START, END, StateGraph  # Componentes para criar grafos de estados
-from langchain.types import Send  # Tipo para envio de mensagens entre nós
+from langgraph.types import Send  # Tipo para envio de mensagens entre nós
 from pydantic.v1.typing import display_as_type
 from tavily import TavilyClient  # Cliente para pesquisa web via API Tavily
 
