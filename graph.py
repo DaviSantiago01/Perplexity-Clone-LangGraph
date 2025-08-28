@@ -71,7 +71,7 @@ def build_first_queries(state: ReportState):
     class QueryList(BaseModel):
         queries: List[str]
         
-    user_input = state.user_input
+    user_input = state['user_input']
 
     # Formatar prompt com a pergunta do usuário
     prompt = build_queries.format(user_input=user_input)
@@ -95,8 +95,8 @@ def spawn_researchers(state: ReportState):
     Returns:
         List[Send]: Lista de tarefas Send para execução paralela
     """
-    return [Send("single_search", {"query": query, "user_input": state.user_input}) 
-            for query in state.queries]
+    return [Send("single_search", {"query": query, "user_input": state['user_input']}) 
+            for query in state['queries']]
 
 def single_search(data: dict):
     """
@@ -192,7 +192,7 @@ def final_writer(state: ReportState):
     search_results = ""
     references = ""
     
-    for i, result in enumerate(state.queries_results):
+    for i, result in enumerate(state['queries_results']):
         # CONTROLE DE TOKENS: Limitar cada resumo individual (300 chars)
         resume_content = result.resume
         if len(resume_content) > 300:
@@ -203,7 +203,7 @@ def final_writer(state: ReportState):
         references += f"[{i+1}] - [{result.title}]({result.url})\n"
     
     # PREPARAÇÃO DO PROMPT: Consolidar pergunta e resultados
-    prompt = build_final_response.format(user_input=state.user_input,
+    prompt = build_final_response.format(user_input=state['user_input'],
                                     search_results=search_results)
 
     # SÍNTESE FINAL: Usar LLM robusto (70B) para raciocínio complexo
