@@ -31,6 +31,7 @@
 - 📚 **Referências completas** com links verificáveis e deduplicação
 - 📝 **Código totalmente documentado** com comentários detalhados
 - 🛡️ **Tratamento robusto de erros** e fallbacks automáticos
+- 🔧 **Estado concorrente otimizado** com suporte a atualizações paralelas
 
 ### 🎬 Demonstração
 
@@ -182,6 +183,29 @@ Acesse `http://localhost:8501` no seu navegador.
 - ✅ **Tratamento de Erros**: Fallbacks robustos para APIs indisponíveis
 - ✅ **Interface Moderna**: Indicadores de progresso e feedback em tempo real
 - ✅ **Código Documentado**: Comentários detalhados em todos os arquivos
+
+## 🔧 Correções Técnicas Implementadas
+
+### Resolução do Erro INVALID_CONCURRENT_GRAPH_UPDATE
+
+O projeto foi otimizado para suportar **atualizações concorrentes** no estado do grafo LangGraph:
+
+- **Problema**: Múltiplos nós `single_search` tentavam atualizar simultaneamente o campo `queries_results`
+- **Solução**: Implementação de `Annotated[List[QueryResult], operator.add]` no `ReportState`
+- **Benefício**: Permite processamento paralelo real sem conflitos de estado
+
+```python
+# schemas.py - Estado otimizado para concorrência
+class ReportState(TypedDict):
+    queries_results: Annotated[List[QueryResult], operator.add]  # ✅ Suporte a concatenação
+    sources: List[str]  # Atualizado apenas pelo nó final
+```
+
+### Arquitetura de Estado Concorrente
+
+- **`queries_results`**: Atualizado por múltiplos nós paralelos usando concatenação automática
+- **`sources`**: Atualizado apenas pelo nó `final_writer` para evitar conflitos
+- **Operador `add`**: Permite que o LangGraph combine automaticamente listas de diferentes nós
 
 ## 🔧 Personalização
 
