@@ -210,56 +210,55 @@ graph = builder.compile()
 # INTERFACE STREAMLIT - Aplicação web para interação com o usuário
 # ============================================================================
 
-if __name__ == "__main__":
-    # Visualização opcional do grafo (requer IPython)
-    try:
-        from IPython.display import Image, display
-        display(Image(graph.get_graph().draw_mermaid_png()))
-    except ImportError:
-        pass  # IPython não disponível em ambiente Streamlit
+# Visualização opcional do grafo (requer IPython)
+try:
+    from IPython.display import Image, display
+    display(Image(graph.get_graph().draw_mermaid_png()))
+except ImportError:
+    pass  # IPython não disponível em ambiente Streamlit
 
-    # Configuração da interface web
-    st.title("🔍 Perplexity Clone - Ollama + LangGraph")
-    st.markdown("*Pesquisa inteligente com IA local usando Ollama e busca web via Tavily*")
-    
-    # Campo de entrada para a pergunta do usuário
-    user_input = st.text_input(
-        "Faça sua pergunta:", 
-        placeholder="Ex: Quais são as últimas novidades em IA?"
-    )
+# Configuração da interface web
+st.title("🔍 Perplexity Clone - Ollama + LangGraph")
+st.markdown("*Pesquisa inteligente com IA local usando Ollama e busca web via Tavily*")
 
-    # Botão para iniciar a pesquisa
-    if st.button("🚀 Pesquisar", type="primary"):
-        if user_input.strip():  # Verifica se há input válido
-            # Interface de progresso durante execução
-            with st.status("🔄 Processando sua pergunta...", expanded=True) as status:
-                st.write("📝 Gerando queries de pesquisa...")
-                
-                # Executa o workflow LangGraph em modo stream para feedback em tempo real
-                for output in graph.stream(
-                    {"user_input": user_input},
-                    stream_mode="debug"  # Modo debug para acompanhar execução
-                ):
-                    # Mostra progresso de cada nódulo executado
-                    if output["type"] == "task_result":
-                        node_name = output['payload']['name']
-                        st.write(f"✅ Executando: {node_name}")
-                
-                status.update(label="✅ Pesquisa concluída!", state="complete")
+# Campo de entrada para a pergunta do usuário
+user_input = st.text_input(
+    "Faça sua pergunta:", 
+    placeholder="Ex: Quais são as últimas novidades em IA?"
+)
+
+# Botão para iniciar a pesquisa
+if st.button("🚀 Pesquisar", type="primary"):
+    if user_input.strip():  # Verifica se há input válido
+        # Interface de progresso durante execução
+        with st.status("🔄 Processando sua pergunta...", expanded=True) as status:
+            st.write("📝 Gerando queries de pesquisa...")
             
-            # Extrai e exibe a resposta final
-            try:
-                # Obtém resultado final do último output
-                final_result = graph.invoke({"user_input": user_input})
-                final_response = final_result.get("final_response", "Erro ao gerar resposta")
-                
-                # Exibe resposta formatada
-                st.markdown("### 📋 Resposta:")
-                st.markdown(final_response)
-                
-            except Exception as e:
-                st.error(f"❌ Erro durante processamento: {str(e)}")
-        else:
-            st.warning("⚠️ Por favor, digite uma pergunta válida.")
+            # Executa o workflow LangGraph em modo stream para feedback em tempo real
+            for output in graph.stream(
+                {"user_input": user_input},
+                stream_mode="debug"  # Modo debug para acompanhar execução
+            ):
+                # Mostra progresso de cada nódulo executado
+                if output["type"] == "task_result":
+                    node_name = output['payload']['name']
+                    st.write(f"✅ Executando: {node_name}")
+            
+            status.update(label="✅ Pesquisa concluída!", state="complete")
+        
+        # Extrai e exibe a resposta final
+        try:
+            # Obtém resultado final do último output
+            final_result = graph.invoke({"user_input": user_input})
+            final_response = final_result.get("final_response", "Erro ao gerar resposta")
+            
+            # Exibe resposta formatada
+            st.markdown("### 📋 Resposta:")
+            st.markdown(final_response)
+            
+        except Exception as e:
+            st.error(f"❌ Erro durante processamento: {str(e)}")
+    else:
+        st.warning("⚠️ Por favor, digite uma pergunta válida.")
  
 

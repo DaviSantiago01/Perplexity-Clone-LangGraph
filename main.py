@@ -5,8 +5,6 @@ Este arquivo serve como launcher da aplicação Streamlit.
 Execute este arquivo para iniciar a interface web.
 
 Uso:
-    python main.py
-    ou
     streamlit run main.py
 """
 
@@ -16,10 +14,7 @@ import os
 # Adiciona a pasta src ao path para permitir imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
-# Importa e executa o módulo principal
-if __name__ == "__main__":
-    # Importa o módulo graph que contém a interface Streamlit
-    from src import graph
-    
-    # A interface Streamlit será executada automaticamente
-    # quando o módulo graph for importado
+# Importa todos os componentes necessários
+from src.graph import *
+
+# A interface Streamlit será executada quando este arquivo for chamado via streamlit run
