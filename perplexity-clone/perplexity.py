@@ -58,7 +58,7 @@ def single_search(query: str):
             llm_result = llm.invoke(prompt)
             query_results += [QueryResult(query=result["title"],
                                     content=llm_result.content,
-                                    sources=[url])]
+                                    sources=[{"title": result["title"], "url": url, "snippet": raw_content[:100] + "..."}])]
     return {"queries_results": query_results}
     
 
@@ -68,11 +68,11 @@ def final_writer(state: ReportState):
     for i, result in enumerate(state.queries_results):
         search_results += f"[{i+1}]\n\n"
         search_results += f"Title: {result.query}\n"
-        search_results += f"URL: {result.sources[0] if result.sources else '#'}\n"
+        source_url = result.sources[0]['url'] if result.sources else '#'
+        search_results += f"URL: {source_url}\n"
         search_results += f"Content: {result.content}\n"
         search_results += f"================\n\n"
 
-        source_url = result.sources[0] if result.sources else "#"
         references += f"[{i+1}] - [{result.query}]({source_url})\n"
     
 

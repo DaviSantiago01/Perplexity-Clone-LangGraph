@@ -152,12 +152,12 @@ def single_search(data: dict):
                 llm_result = llm.invoke(prompt)
                 query_results.append(QueryResult(query=title,
                                         content=llm_result.content,
-                                        sources=[url]))
+                                        sources=[{"title": title, "url": url, "snippet": raw_content[:100] + "..."}]))
             else:
                 # FALLBACK: Usar snippet básico quando não há conteúdo completo
                 query_results.append(QueryResult(query=title,
                                         content=content or "Conteúdo não disponível",
-                                        sources=[url]))
+                                        sources=[{"title": title, "url": url, "snippet": content[:100] + "..."}]))
                 
     except Exception as e:
         # TRATAMENTO DE ERRO: Capturar limites de API, falhas de conexão, etc.
@@ -165,7 +165,7 @@ def single_search(data: dict):
         # Fallback em caso de erro: retorna resultado básico para continuidade
         query_results = [QueryResult(query=f"Busca: {query}",
                                    content=f"Erro ao buscar informações sobre: {query}",
-                                   sources=["#"])]
+                                   sources=[{"title": "Fonte não disponível", "url": "#", "snippet": "Erro na busca"}])]
     
     return {"queries_results": query_results}
 
@@ -200,8 +200,8 @@ def final_writer(state: ReportState):
             
         # FORMATAÇÃO: Estruturar resultados numerados para o prompt
         search_results += f"[{i+1}] {result.query}\n{content_text}\n\n"
-        # Usar primeira fonte da lista de sources
-        source_url = result.sources[0] if result.sources else "#"
+        # Usar primeira fonte da lista de sources (agora é um dicionário)
+        source_url = result.sources[0]['url'] if result.sources else "#"
         references += f"[{i+1}] - [{result.query}]({source_url})\n"
     
     # PREPARAÇÃO DO PROMPT: Consolidar pergunta e resultados
