@@ -146,3 +146,11 @@ Resultado: crema dourada e sabor equilibrado.
 [2] coffeeresearch.org/temperature
 [3] specialtycoffee.com/timing
 ```
+
+---
+
+---
+
+## Créditos
+
+Projeto inspirado no tutorial da [Asimov Academy](https://www.youtube.com/@AsimovAcademy). Vídeo original: [Crie um Clone do Perplexity AI com LangGraph](https://www.youtube.com/watch?v=q2XPEjQ4Yt0). Esta versão foi atualizada para LangGraph v1.0 e LangChain v1.0.
