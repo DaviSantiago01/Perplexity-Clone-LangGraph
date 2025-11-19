@@ -62,14 +62,10 @@ streamlit run app.py
 
 ```
 perplexity-clone/
-├── main.py              # CLI
-├── app.py               # Streamlit UI
-└── src/
-    ├── config.py        # Configurações
-    ├── models.py        # TypedDict
-    ├── prompts.py       # Templates
-    ├── graph.py         # LangGraph workflow
-    └── services.py      # Groq + Tavily
+├── main.py          
+├── requirements.txt
+├── .env
+└── README.md
 ```
 
 ---
@@ -146,8 +142,6 @@ Resultado: crema dourada e sabor equilibrado.
 [2] coffeeresearch.org/temperature
 [3] specialtycoffee.com/timing
 ```
-
----
 
 ---
 

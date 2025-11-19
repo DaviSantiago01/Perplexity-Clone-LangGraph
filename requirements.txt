@@ -1,18 +1,15 @@
-langchain-core>=0.3.0
-langchain-groq>=0.2.0
-langgraph>=0.2.0
+langchain==1.0.7
+langchain-core==1.0.5
+langchain-groq==1.0.1
+langgraph==1.0.4
 
-tavily-python>=0.5.0
+tavily-python==0.7.12
 
-# Data & Validation
-pydantic>=2.0.0
-pydantic-settings>=2.0.0
+pydantic==2.10.3
+pydantic-settings==2.6.1
 
-# Environment
-python-dotenv>=1.0.0
+python-dotenv==1.0.1
 
-# UI (opcional)
-streamlit>=1.40.0
+streamlit==1.41.1
 
-# Utils
-typing-extensions>=4.12.0
+typing-extensions==4.12.2
