@@ -45,7 +45,37 @@ class SearchState(TypedDict):
 # Nós do grafo
 def gerar_queries(state: SearchState) -> dict:
     """Gera 3-5 queries de busca a partir da pergunta"""
-    pass
+
+    prompt = f"""
+        Você é um especialista em criar queries de busca otimizadas.
+
+        Pergunta do usuário: {state['pergunta']}
+
+        Gere 3-5 queries de busca específicas e diferentes que ajudarão a responder completamente essa pergunta.
+        Retorne APENAS as queries, uma por linha, sem numeração ou formatação extra.
+
+        Exemplo:
+        melhores carros elétricos 2025
+        autonomia carros elétricos comparação
+        preço carros elétricos brasil
+    """
+
+    response = llm_fast.invoke(prompt)
+
+    linhas = response.content.split("\n")
+
+    queries = []
+
+    for linha in linhas:
+        linha_limpa = linha.strip()
+
+        if linha_limpa and len(linha_limpa) > 5:
+            queries.append(linha_limpa)
+
+        if len(queries) >= 5:
+            break
+        
+    return {"queries": queries}
 
 def buscar_paralelo(state: SearchState) -> dict:
     """Executa buscas paralelas no Tavily"""
