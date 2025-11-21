@@ -105,7 +105,31 @@ def buscar_paralelo(state: SearchState) -> dict:
 
 def resumir(state: SearchState) -> dict:
     """Resume cada resultado em 2-3 frases"""
-    pass
+
+    resumos = []
+    resultados = state["resultados_brutos"]
+
+    for resultado in resultados:
+        prompt = f"""
+        Resuma o seguinte conteúdo em 2-3 frases objetivas e informativas.
+
+        Título: {resultado['title']}
+        Conteúdo: {resultado['content']}
+
+        Retorne APENAS o resumo, sem introduções ou formatação extra.
+        """
+        try:
+            response = llm_fast.invoke(prompt)
+            resumo = response.content.strip()
+            
+            if len(resumo) > 0:
+                resumos.append(resumo)
+                
+        except Exception as e:
+            print(f"Erro ao resumir '{resultado['title']}': {e}")
+            continue
+
+    return {"resumos": resumos}
 
 def sintetizar(state: SearchState) -> dict:
     """Gera resposta final com citações"""
