@@ -79,7 +79,29 @@ def gerar_queries(state: SearchState) -> dict:
 
 def buscar_paralelo(state: SearchState) -> dict:
     """Executa buscas paralelas no Tavily"""
-    pass
+
+    queries = state["queries"]
+    resultados = []
+
+    for query in queries:
+        try:
+            resposta = tavily_client.search(
+                query=query, 
+                max_results=3
+            )
+
+            for resultado in resposta.get("results", []):
+                resultados.append({
+                    'query': query,
+                    'title': resultado.get('title', ''),
+                    'url': resultado.get('url', ''),
+                    'content': resultado.get('content', '')
+                })
+        except Exception as e:
+            print(f"Erro ao buscar '{query}': {e}")
+            continue
+
+    return {"resultados_brutos": resultados}
 
 def resumir(state: SearchState) -> dict:
     """Resume cada resultado em 2-3 frases"""
