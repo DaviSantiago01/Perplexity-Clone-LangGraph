@@ -133,7 +133,39 @@ def resumir(state: SearchState) -> dict:
 
 def sintetizar(state: SearchState) -> dict:
     """Gera resposta final com citações"""
-    pass
+    
+    resumos_formatados = []
+    for i, resumo in enumerate(state['resumos'], 1):
+        resumos_formatados.append(f"[{i}] {resumo}")
+    
+    resumos_texto = '\n'.join(resumos_formatados)
+    
+    prompt = f"""
+    Você é um especialista em sintetizar informações de múltiplas fontes.
+
+    Pergunta: {state['pergunta']}
+
+    Fontes disponíveis:
+    {resumos_texto}
+
+    Elabore uma resposta completa e coerente usando as informações acima.
+    Use citações [1], [2], [3] ao mencionar cada fonte.
+
+    Retorne APENAS a resposta final formatada, sem introduções.
+    """
+
+    try:
+        response = llm_reasoning.invoke(prompt)
+        resposta_final = response.content.strip()
+        
+        if len(resposta_final) == 0:
+            resposta_final = "Não foi possível gerar uma resposta."
+            
+    except Exception as e:
+        print(f"Erro ao sintetizar: {e}")
+        resposta_final = f"Erro na síntese: {e}"
+
+    return {"resposta_final": resposta_final}
 
 # Construir o grafo
 builder = StateGraph(SearchState)
@@ -153,3 +185,10 @@ builder.add_edge("sintetizar", END)
 
 #Compilar o Graph
 graph = builder.compile()
+
+if __name__ == "__main__":
+    resultado = graph.invoke({
+        "pergunta": "Quais são as principais tendências em inteligência artificial para 2025?"
+    })
+    print("Resposta Final:\n")
+    print(resultado["resposta_final"])
